@@ -6,8 +6,7 @@ COPY pom.xml .
 RUN mvn -B -e -C -T 1C org.apache.maven.plugins:maven-dependency-plugin:3.0.2:go-offline
 
 COPY . .
-RUN mvn clean package
-
+RUN mvn clean package -Dmaven.test.skip=true
 
 FROM openjdk:8-jdk-alpine
 RUN addgroup -S demo && adduser -S demo -G demo
