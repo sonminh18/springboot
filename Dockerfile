@@ -5,7 +5,7 @@ WORKDIR /workspace/app
 COPY pom.xml .
 RUN mvn -B -e -C -T 1C org.apache.maven.plugins:maven-dependency-plugin:3.0.2:go-offline
 
-RUN snap install postman
+RUN npm install -g newman
 
 COPY . .
 RUN mvn clean package -Dmaven.test.skip=true
