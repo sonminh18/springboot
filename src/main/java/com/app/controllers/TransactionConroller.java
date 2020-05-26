@@ -14,7 +14,7 @@ import com.app.model.Transaction;
 import com.app.service.TransactionService;
 
 @RestController
-@RequestMapping("/my-java-app")
+
 public class TransactionConroller {
 
 	@Autowired
