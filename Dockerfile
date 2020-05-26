@@ -6,7 +6,7 @@ COPY pom.xml .
 RUN mvn -B -e -C -T 1C org.apache.maven.plugins:maven-dependency-plugin:3.0.2:go-offline
 
 FROM node:10.11.0-alpine
-RUN npm install -g newman newman-reporter-html
+RUN npm install -g newman 
 
 
 COPY . .
