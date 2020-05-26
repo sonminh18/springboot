@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@RequestMapping("/")
 public class MySqlApplication {
 
 	public static void main(String[] args) {
