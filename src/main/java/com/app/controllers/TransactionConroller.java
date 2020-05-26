@@ -20,7 +20,7 @@ public class TransactionConroller {
 	@Autowired
 	TransactionService transactionService;
 	
-	@PostMapping("/create")
+	@RequestMapping("/create")
 	public Long createTransaction(@RequestBody Transaction transaction) {
 		transactionService.saveTransaction(transaction);
 		return transaction.getTransactionId();
