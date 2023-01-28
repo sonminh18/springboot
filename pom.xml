@@ -85,16 +85,6 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>central</id>
-			<url>http://repo.maven.org/maven2</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-			    <enabled>false</enabled>
-			</snapshots>
-		    </repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -108,16 +98,18 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-		<pluginRepository>
-			<id>central</id>
-			<url>http://repo.maven.org/maven2</url>
-			<releases>
-			    <enabled>false</enabled>
-			</releases>
-			<snapshots>
-			    <enabled>false</enabled>
-			</snapshots>
-	    </pluginRepository>
 	</pluginRepositories>
-
+<profiles>
+    <profile>
+      <id>profile</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <repositories>
+        <repository>
+          <id>maven-central</id>
+        </repository>
+      </repositories>
+    </profile>
+</profiles>
 </project>
