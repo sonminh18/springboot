@@ -79,7 +79,7 @@
 			<name>Maven central</name>
 			<url>http://nexus-repo-nexus-repository-manager.tools:8081/repository/maven-public/</url>
 			<releases>
-			    <enabled>true</enabled>
+			    <enabled>false</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
@@ -92,7 +92,7 @@
 			<name>Maven central</name>
 			<url>http://nexus-repo-nexus-repository-manager.tools:8081/repository/maven-public/</url>
 			<releases>
-			    <enabled>true</enabled>
+			    <enabled>false</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
