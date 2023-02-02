@@ -3,7 +3,17 @@ entries:
   spring-boot:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-02-02T11:09:45.120207+07:00"
+    created: "2023-02-02T11:11:48.49855+07:00"
+    description: A Helm chart for Kubernetes
+    digest: 7b5920f35f4b26e62143b8be20605eb7c2cb00031888553393518fd42ca53896
+    name: spring-boot
+    type: application
+    urls:
+    - https://github.com/sonminh18/springboot.git/spring-boot-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-02-02T11:11:48.498212+07:00"
     description: A Helm chart for Kubernetes
     digest: b7cfdda78b5320b6e63e8567e3a2e867338eaf6fee6affd035c180c99148ade2
     name: spring-boot
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://github.com/sonminh18/springboot.git/spring-boot-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-02T11:09:45.119464+07:00"
+generated: "2023-02-02T11:11:48.497382+07:00"
