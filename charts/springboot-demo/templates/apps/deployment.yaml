@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "spring-boot.fullname" . }}
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "spring-boot.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- if .Values.podAnnotations }}
+      annotations:
+        timestamp: {{ now | quote }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "spring-boot.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.version }}"
+          name: {{- include "spring-boot.fullname" . | indent 1 }}
+          command: {{- default (include "spring-boot.commands" .) .Values.command | nindent 12 }}
+          env: {{- default (include "spring-boot.env" .) | nindent 12 }}
+          {{- with .Values.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          args: {{- default (include "spring-boot.args" .) (toYaml .Values.args) | nindent 12 }}
+          {{- with .Values.extraArgs }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.securityContext }}
+          securityContext:
+          {{- include "common.tplvalues.render" (dict "value" .Values.securityContext "context" $) | nindent 12 }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.ports }}
+          ports:
+          {{- include "spring-boot.ports" . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.healthCheck.enabled }}
+          {{- if .Values.healthCheck.livenessProbe }}
+          livenessProbe:
+          {{- include "common.tplvalues.render" (dict "value" .Values.healthCheck.livenessProbe "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.healthCheck.readinessProbe }}
+          readinessProbe:
+          {{- include "common.tplvalues.render" (dict "value" .Values.healthCheck.readinessProbe "context" $) | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.resources }}
+          resources:
+          {{- include "common.tplvalues.render" (dict "value" .Values.resources "context" $) | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+          {{- if .Values.persistentVolume.enabled }}
+            - mountPath: /app
+              name: {{ include "spring-boot.fullname" . }}
+              subPath: logs
+          {{- end }}
+          {{- include "common.tplvalues.render" (dict "value" .Values.volumeMounts "context" $) | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- include "common.tplvalues.render" (dict "value" .Values.imagePullSecrets "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ include "spring-boot.serviceAccountName" . }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+      {{- if .Values.persistentVolume.enabled }}
+        - name: {{ include "spring-boot.fullname" . }}
+      {{- end }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.volumes "context" $) | nindent 8 }}
